@@ -7,6 +7,14 @@ Permite realizar operaciones CRUD (crear, leer, actualizar y eliminar)
 sobre pacientes mediante una API Rest desarrollada en NodeJS y un
 frontend en React.
 
+## Capturas
+
+![screenshot1](https://github.com/sirlencio/Clinica-Dental/blob/main/screenshots/sc2.png)
+
+![screenshot2](https://github.com/sirlencio/Clinica-Dental/blob/main/screenshots/sc1.png)
+
+![screenshot3](https://github.com/sirlencio/Clinica-Dental/blob/main/screenshots/sc3.png)
+
 ## Tecnologías utilizadas
 
 ### Backend
@@ -59,5 +67,3 @@ POST /pacientes
 PUT /pacientes/:dni
 
 DELETE /pacientes/:dni
-
-## Capturas
