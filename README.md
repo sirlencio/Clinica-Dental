@@ -31,14 +31,18 @@ frontend en React.
 ## Puesta en marcha
 
 ### Backend
+```shell
 cd backend
 npm install
 npm run dev
+```
 
-Frontend
+### Frontend
+```shell
 cd frontend
 npm install
 npm run dev
+```
 
 ## Funcionalidades
 
