@@ -1,30 +1,30 @@
 const patients = [
     {
-        dni: "33448876H",
+        dni: "03923317T",
         name: "Pedro",
-        surname: "Gomez Romero",
-        address: "Calle Las Flores 23",
-        locality: "Huelva",
-        cp: "21001",
-        phone: "777889912"
+        surname: "Valenzuela Canovas",
+        address: "Avenida Diego Velázquez, 62",
+        locality: "Madrid",
+        cp: "28981",
+        phone: "637460652"
     },
     {
-        dni: "39393939A",
-        name: "Luis",
-        surname: "Perez Guzman",
-        address: "Calle Miraflor 23",
-        locality: "Huelva",
-        cp: "21001",
-        phone: "901929129"
+        dni: "29498408B",
+        name: "Luis Miguel",
+        surname: "Casado Arenas",
+        address: "Cuesta Juan Ramón Jiménez, 34",
+        locality: "Burgos",
+        cp: "09156",
+        phone: "756197689"
     },
     {
-        dni: "67451129K",
-        name: "María",
-        surname: "Lopez Peral",
-        address: "Avenida Andalucia 22",
-        locality: "Sevilla",
-        cp: "21003",
-        phone: "13213234"
+        dni: "01345470Q",
+        name: "Alicia",
+        surname: "Hervas Esteve",
+        address: "Avenida Real, 65",
+        locality: "Alicante",
+        cp: "03854",
+        phone: "631076719"
     }
 ]
 
