@@ -7,6 +7,7 @@ import {
   updatePatient,
   getPatientByDni,
 } from "../services/patients-service";
+import { toast } from "sonner";
 
 const PatientFormPage = () => {
   const navigate = useNavigate();
@@ -23,16 +24,19 @@ const PatientFormPage = () => {
     }
   }, [isEditing, dni]);
 
-  const onSubmitForm = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!patient) return;
-
-    if (isEditing) {
-      await updatePatient(patient.dni, patient);
-    } else {
-      await createPatient(patient);
+  const handleSave = async (data: Patient) => {
+    try {
+      if (isEditing) {
+        await updatePatient(data.dni, data);
+        toast.success("Paciente actualizado con éxito");
+      } else {
+        await createPatient(data);
+        toast.success("Paciente registrado correctamente");
+      }
+      navigate("/pacientes");
+    } catch {
+      toast.error("Error al conectar con el servidor");
     }
-    navigate("/pacientes")
   };
 
   return (
@@ -41,7 +45,7 @@ const PatientFormPage = () => {
         isEditing={isEditing}
         patient={patient}
         setPatient={setPatient}
-        onSubmitForm={onSubmitForm}
+        onSubmit={handleSave}
       />
     </section>
   );

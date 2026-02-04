@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { getAllPatients } from "../services/patients-service";
 import type { Patient } from "../types/patient";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
 
 interface Props {
   selectedPatient: Patient | null;
@@ -19,55 +27,63 @@ const PatientsTable = ({ selectedPatient, onSelectPatient }: Props) => {
     });
   }, []);
 
-  const onClickPatient = (patient: Patient) => {
-    if (patient) onSelectPatient(patient);
-  };
-
   if (error) {
-    return <div>Error cargando pacientes</div>;
+    return (
+      <div className="p-4 text-center text-destructive bg-destructive/10 rounded-lg border border-destructive/20">
+        Error cargando pacientes. Por favor, intenta de nuevo.
+      </div>
+    );
   }
 
   return (
-    <div>
-      <table className="border-collapse border-spacing-2 bg-white text-xl border-black border-4 text-center">
-        <thead className="bg-blue-600 text-white font-semibold">
-          <tr>
-            <th className="border-black border-4 p-4">DNI</th>
-            <th className="border-black border-4 p-4">Nombre</th>
-            <th className="border-black border-4 p-4">Apellidos</th>
-            <th className="border-black border-4 p-4">Dirección</th>
-            <th className="border-black border-4 p-4">Localidad</th>
-            <th className="border-black border-4 p-4">Codigo Postal</th>
-            <th className="border-black border-4 p-4">Teléfono</th>
-          </tr>
-        </thead>
-        <tbody className="bg-blue-300">
-          {patients.map((patient) => (
-            <tr
-              key={patient.dni}
-              className={clsx(
-                "hover:bg-blue-400 cursor-pointer",
-                selectedPatient?.dni === patient.dni && "bg-blue-500",
-              )}
-              onClick={() => onClickPatient(patient)}
-            >
-              <td className="border-2 border-gray-700 p-8">{patient.dni}</td>
-              <td className="border-2 border-gray-700 p-8">{patient.name}</td>
-              <td className="border-2 border-gray-700 p-8">
-                {patient.surname}
-              </td>
-              <td className="border-2 border-gray-700 p-8">
-                {patient.address}
-              </td>
-              <td className="border-2 border-gray-700 p-8">
-                {patient.locality}
-              </td>
-              <td className="border-2 border-gray-700 p-8">{patient.cp}</td>
-              <td className="border-2 border-gray-700 p-8">{patient.phone}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="rounded-xl border shadow-sm bg-card overflow-hidden">
+      <Table>
+        <TableHeader>
+          <TableRow className="bg-muted/50">
+            <TableHead className="py-5 px-6 font-bold text-foreground h-14 text-base">DNI</TableHead>
+            <TableHead className="py-5 px-6 font-bold text-foreground text-base">Nombre</TableHead>
+            <TableHead className="py-5 px-6 font-bold text-foreground text-base">Apellidos</TableHead>
+            <TableHead className="py-5 px-6 font-bold text-foreground text-base hidden md:table-cell">Dirección</TableHead>
+            <TableHead className="py-5 px-6 font-bold text-foreground text-base hidden lg:table-cell">Localidad</TableHead>
+            <TableHead className="py-5 px-6 font-bold text-foreground text-base">Teléfono</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {patients.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={6} className="h-32 text-center text-lg text-muted-foreground">
+                No hay pacientes registrados.
+              </TableCell>
+            </TableRow>
+          ) : (
+            patients.map((patient) => (
+              <TableRow
+                key={patient.dni}
+                className={cn(
+                  "cursor-pointer transition-all border-b",
+                  selectedPatient?.dni === patient.dni 
+                    ? "bg-primary/10 hover:bg-primary/15" 
+                    : "hover:bg-muted/30"
+                )}
+                onClick={() => onSelectPatient(patient)}
+              >
+                <TableCell className="py-6 px-6 font-medium text-base">{patient.dni}</TableCell>
+                <TableCell className="py-6 px-6 text-base">{patient.name}</TableCell>
+                <TableCell className="py-6 px-6 text-base">{patient.surname}</TableCell>
+                <TableCell className="py-6 px-6 text-base hidden md:table-cell text-muted-foreground">
+                  {patient.address}
+                </TableCell>
+                <TableCell className="py-6 px-6 text-base hidden lg:table-cell">
+                  {patient.locality}
+                </TableCell>
+                <TableCell className="py-6 px-6 text-base font-mono font-semibold">
+                  {patient.phone}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 };

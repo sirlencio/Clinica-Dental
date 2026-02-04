@@ -1,44 +1,48 @@
-import clsx from "clsx";
-import { NavLink } from "react-router";
+import { Link, useLocation } from "react-router";
+import { ModeToggle } from "./ModeToggle";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
-    <div className="flex justify-around items-center">
-      <div>
-        <img src="/images/logo.png" alt="Logo" className="w-12 h-12 p-2" />
+    <div className="flex w-full items-center justify-between">
+      <div className="flex items-center gap-2">
+        <img src="/images/logo.png" alt="Logo" className="w-10 h-10" />
+        <span className="font-bold text-lg tracking-tight">DENTAL TIME</span>
       </div>
 
-      <div>
-        <NavLink
-          to={"/"}
-          className={({ isActive }) =>
-            clsx(
-              "px-3 py-2 rounded text-sm font-bold",
-              isActive
-                ? "bg-blue-600 text-white"
-                : "text-gray-700 hover:bg-gray-100",
-            )
-          }
-        >
-          Inicio
-        </NavLink>
-      </div>
+      <NavigationMenu>
+        <NavigationMenuList className="gap-2">
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              active={location.pathname === "/"}
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link to="/">Inicio</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
 
-      <div>
-        <NavLink
-          to={"/pacientes"}
-          className={({ isActive }) =>
-            clsx(
-              "px-3 py-2 rounded text-sm font-bold",
-              isActive
-                ? "bg-blue-600 text-white"
-                : "text-gray-700 hover:bg-gray-100",
-            )
-          }
-        >
-          Lista
-        </NavLink>
-      </div>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              active={location.pathname === "/pacientes"}
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link to="/pacientes">Pacientes</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+
+      <ModeToggle />
     </div>
   );
 };
